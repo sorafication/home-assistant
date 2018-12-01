@@ -1,0 +1,86 @@
+########## Startup Notification ##########
+- alias: Notify when Homeassistant starts
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: notify.telegram
+      data:
+        title: "ich bin lebendig :)"
+        message: "Das Leben ist so wunderschön."
+
+########## Shutdown Notification ##########
+- alias: Notify when Homeassistant stops
+  trigger:
+    platform: homeassistant
+    event: shutdown
+  action:
+    - service: notify.telegram
+      data:
+        title: "Ich bin tot :("
+        message: "Ich komme als Geist wieder und verhexe deinen Penis."
+
+########## Only Play Music if Motion was detected and Media Player is off or paused ##########
+########## Don´t start Music everytime new if someone didnot move for a few seconds ##########
+- alias: Send Telegram and play Music in kitchen
+  trigger:
+    platform: state
+    entity_id: sensor.bathroom_motion_sensor
+    from: 'off'
+    to: 'on'
+  condition: 
+    condition: and
+    conditions:
+      - condition: time
+        after: '09:00:00'
+        before: '01:00:00'
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+          - sat
+          - sun
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: media_player.badezimmer
+            state: "paused"
+          - condition: state
+            entity_id: media_player.badezimmer
+            state: "idle"
+          - condition: state
+            entity_id: media_player.badezimmer
+            state: "off"
+  action:
+#    - service: notify.telegram
+#      data:
+#        title: Bewegung erkannt
+#        message: "Wer war das?"
+    - service: media_player.play_media
+      data_template:
+        entity_id: media_player.badezimmer
+        media_content_type: audio/mp3
+        media_content_id: "http://stream12.iloveradio.de/iloveradio8-aac.mp3"
+        
+
+########## Stop Music after Motion was not detected for 30 Seconds ##########        
+- alias: Stop after no motion
+  trigger:
+    platform: state
+    entity_id: sensor.bathroom_motion_sensor
+    to: 'off'
+    for:
+      seconds: 20
+  condition: 
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: media_player.badezimmer
+        state: "playing"
+  action:
+    - service: media_player.media_pause
+      data:
+        entity_id: media_player.badezimmer
+    
