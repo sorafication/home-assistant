@@ -63,6 +63,10 @@
         entity_id: media_player.badezimmer
         media_content_type: audio/mp3
         media_content_id: "http://stream12.iloveradio.de/iloveradio6-aac.mp3"
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 6a05ef71d191e787bfaacd4983c5d53e4d227c63
 
 
 ########## Stop Music after Motion was not detected for 30 Seconds ##########
@@ -73,7 +77,11 @@
     to: 'off'
     for:
       seconds: 15
+<<<<<<< HEAD
   condition:
+=======
+  condition: 
+>>>>>>> 6a05ef71d191e787bfaacd4983c5d53e4d227c63
     condition: or
     conditions:
       - condition: state
@@ -83,3 +91,7 @@
     - service: media_player.media_pause
       data:
         entity_id: media_player.badezimmer
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 6a05ef71d191e787bfaacd4983c5d53e4d227c63
