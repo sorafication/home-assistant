@@ -32,7 +32,7 @@
     condition: and
     conditions:
       - condition: time
-        after: '09:00:00'
+        after: '07:30:00'
         before: '01:00:00'
         weekday:
           - mon
@@ -62,7 +62,7 @@
       data_template:
         entity_id: media_player.badezimmer
         media_content_type: audio/mp3
-        media_content_id: "http://stream12.iloveradio.de/iloveradio8-aac.mp3"
+        media_content_id: "http://stream12.iloveradio.de/iloveradio6-aac.mp3"
         
 
 ########## Stop Music after Motion was not detected for 30 Seconds ##########        
@@ -72,7 +72,7 @@
     entity_id: sensor.bathroom_motion_sensor
     to: 'off'
     for:
-      seconds: 20
+      seconds: 15
   condition: 
     condition: or
     conditions:
