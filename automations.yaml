@@ -25,14 +25,14 @@
 - alias: Send Telegram and play Music in kitchen
   trigger:
     platform: state
-    entity_id: sensor.bathroom_motion_sensor
+    entity_id: binary_sensor.bathroom_sensor_motion
     from: 'off'
     to: 'on'
-  condition: 
+  condition:
     condition: and
     conditions:
       - condition: time
-        after: '09:00:00'
+        after: '07:30:00'
         before: '01:00:00'
         weekday:
           - mon
@@ -62,18 +62,18 @@
       data_template:
         entity_id: media_player.badezimmer
         media_content_type: audio/mp3
-        media_content_id: "http://stream12.iloveradio.de/iloveradio8-aac.mp3"
-        
+        media_content_id: "http://stream12.iloveradio.de/iloveradio6-aac.mp3"
 
-########## Stop Music after Motion was not detected for 30 Seconds ##########        
+
+########## Stop Music after Motion was not detected for 30 Seconds ##########
 - alias: Stop after no motion
   trigger:
     platform: state
-    entity_id: sensor.bathroom_motion_sensor
+    entity_id: binary_sensor.bathroom_sensor_motion
     to: 'off'
     for:
-      seconds: 20
-  condition: 
+      seconds: 15
+  condition:
     condition: or
     conditions:
       - condition: state
@@ -83,4 +83,3 @@
     - service: media_player.media_pause
       data:
         entity_id: media_player.badezimmer
-    

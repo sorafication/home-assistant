@@ -2,83 +2,40 @@ homeassistant:
   # Name of the location where Home Assistant is running
   name: Home
   # Location required to calculate the time the sun rises and sets
-  latitude: 0
-  longitude: 0
+  latitude: 51.4333
+  longitude: 6.75
   # Impacts weather/sunrise data (altitude above sea level in meters)
   elevation: 0
   # metric for Metric, imperial for Imperial
   unit_system: metric
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: UTC
+  time_zone: Europe/Berlin
   # Customization file
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend
-introduction:
-
-# Enables the frontend
-frontend:
-
-# Enables configuration UI
-config:
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
 
 # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
 # http:
 #   base_url: example.duckdns.org:8123
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
-
 # Discover some devices automatically
 discovery:
 
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
-
-# Enables support for tracking state changes over time
-history:
-
-# View all events in a logbook
-logbook:
-
-# Enables a map showing the location of tracked devices
-map:
-
-# Track the sun
-sun:
-
-# Weather prediction
-#sensor:
-#  - platform: yr
-
+# Sensors
 sensor:
-  - platform: hue
-    ip_address: 192.168.178.21
-    token: bkGv7JCqDbDlwmDr1-7MHi23exNiCX2uHqP5EiJ7
-    
-  - platform: template
-    sensors:
-    
-      bathroom_temperature:
-        friendly_name: 'Bathroom temperature'
-        value_template: '{{states.sensor.bathroom_motion_sensor.attributes.temperature}}'
-        unit_of_measurement: °C
-
-      bathroom_light_level:
-        friendly_name: 'Bathroom light level'
-        value_template: '{{states.sensor.bathroom_motion_sensor.attributes.lx}}'
-        unit_of_measurement: lux
+  # Weather prediction
+  - platform: yr
 
 # Text to speech
 tts:
-  - platform: google
-  
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+
 telegram_bot:
   - platform: broadcast
     api_key: "776788095:AAFINMxEYM7IjWS3l9K4Ec8fYT7ebQTt6KU"
@@ -89,11 +46,3 @@ notify:
   - name: telegram
     platform: telegram
     chat_id: 137729599
-
-# Cloud
-cloud:
-
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
-

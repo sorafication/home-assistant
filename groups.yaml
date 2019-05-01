@@ -1,5 +1,0 @@
-Hue:
-  entities:
-    - sensor.bathroom_motion_sensor
-    - sensor.bathroom_temperature
-    - sensor.bathroom_light_level
