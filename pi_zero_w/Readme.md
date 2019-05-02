@@ -44,3 +44,8 @@ static ip_address=192.168.1.100/24
 static routers=192.168.1.1 
 static domain_name_servers=192.168.1.1
   ```
+
+
+# MQTT CONFIG
+https://www.home-assistant.io/addons/mosquitto/
+https://github.com/zewelor/bt-mqtt-gateway
