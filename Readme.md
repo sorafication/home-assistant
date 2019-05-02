@@ -71,3 +71,5 @@ Config files are located under:
 ``/mnt/data/supervisor/homeassistant/``
 
 Edit all files you need to...
+
+One of the things buried in there is the fact that /mnt/data/supervisor/homeassistant on the host is mounted as /config inside the container.
