@@ -56,3 +56,18 @@ How to get a list of Songs play randomly?
                   "http://stream01.iloveradio.de/iloveradio4.mp3",
                   "http://stream01.iloveradio.de/iloveradio8.mp3",
                   ] | random }}
+
+
+# Step 3: Access Files from SSH/Host System
+
+If Hassio got stuck during boot there may have been some error in your configuration.
+Connect to Host System via Keyboard & HDMI
+User is ``root``
+Check logs with ``homeassistant logs``
+
+If you need to edit some files go to shell mode with ``login``
+
+Config files are located under:
+``/mnt/data/supervisor/homeassistant/``
+
+Edit all files you need to...
