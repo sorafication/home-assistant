@@ -24,17 +24,12 @@ default_config:
 discovery:
 
 # Sensors
-sensor:
-  # Weather prediction
-  - platform: yr
+sensor: !include sensor.yaml
 
 # Text to speech
 tts:
   - platform: google_translate
 
-group: !include groups.yaml
-automation: !include automations.yaml
-script: !include scripts.yaml
 
 telegram_bot:
   - platform: broadcast
@@ -46,3 +41,16 @@ notify:
   - name: telegram
     platform: telegram
     chat_id: 137729599
+
+mqtt:
+  broker: 192.168.178.11
+  birth_message:
+    topic: 'homeassistant/status'
+    payload: 'online'
+
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+plant: !include plants.yaml
+

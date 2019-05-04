@@ -1,27 +1,24 @@
-########## Startup Notification ##########
 - alias: Notify when Homeassistant starts
   trigger:
     platform: homeassistant
     event: start
   action:
-    - service: notify.telegram
-      data:
-        title: "ich bin lebendig :)"
-        message: "Das Leben ist so wunderschön."
-
-########## Shutdown Notification ##########
+  - service: notify.telegram
+    data:
+      title: ich bin lebendig :)
+      message: Das Leben ist so wunderschön.
+  id: 1324d7dff68a433cb31ca994139d932e
 - alias: Notify when Homeassistant stops
   trigger:
     platform: homeassistant
     event: shutdown
   action:
-    - service: notify.telegram
-      data:
-        title: "Ich bin tot :("
-        message: "Ich komme als Geist wieder und verhexe deinen Penis."
-
-########## Only Play Music if Motion was detected and Media Player is off or paused ##########
-########## Don´t start Music everytime new if someone didnot move for a few seconds ##########
+  - service: notify.telegram
+    data:
+      title: Ich bin tot :(
+      message: |
+        {{ "\u2620\uFE0F" }}
+  id: 0791ae1cea124273bd2ff17489d479d3
 - alias: Send Telegram and play Music in kitchen
   trigger:
     platform: state
@@ -31,41 +28,35 @@
   condition:
     condition: and
     conditions:
-      - condition: time
-        after: '07:30:00'
-        before: '01:00:00'
-        weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-          - sat
-          - sun
-      - condition: or
-        conditions:
-          - condition: state
-            entity_id: media_player.badezimmer
-            state: "paused"
-          - condition: state
-            entity_id: media_player.badezimmer
-            state: "idle"
-          - condition: state
-            entity_id: media_player.badezimmer
-            state: "off"
-  action:
-#    - service: notify.telegram
-#      data:
-#        title: Bewegung erkannt
-#        message: "Wer war das?"
-    - service: media_player.play_media
-      data_template:
+    - condition: time
+      after: 07:30:00
+      before: 02:00:00
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+      - sat
+      - sun
+    - condition: or
+      conditions:
+      - condition: state
         entity_id: media_player.badezimmer
-        media_content_type: audio/mp3
-        media_content_id: "http://stream12.iloveradio.de/iloveradio6-aac.mp3"
-
-
-########## Stop Music after Motion was not detected for 30 Seconds ##########
+        state: paused
+      - condition: state
+        entity_id: media_player.badezimmer
+        state: idle
+      - condition: state
+        entity_id: media_player.badezimmer
+        state: 'off'
+  action:
+  - service: media_player.play_media
+    data_template:
+      entity_id: media_player.badezimmer
+      media_content_type: audio/mp3
+      media_content_id: http://stream12.iloveradio.de/iloveradio6-aac.mp3
+  id: 2131b2e299ca46a6af1188f1ad569fac
 - alias: Stop after no motion
   trigger:
     platform: state
@@ -76,10 +67,115 @@
   condition:
     condition: or
     conditions:
-      - condition: state
-        entity_id: media_player.badezimmer
-        state: "playing"
+    - condition: state
+      entity_id: media_player.badezimmer
+      state: playing
   action:
-    - service: media_player.media_pause
-      data:
-        entity_id: media_player.badezimmer
+  - service: media_player.media_pause
+    data:
+      entity_id: media_player.badezimmer
+  id: 449aaf3734b541a58c88949604f94952
+
+
+#Schilf
+- alias: Schilf Problem
+  trigger:
+    platform: state
+    entity_id: plant.schilf
+    to: problem
+  action:
+  - service: notify.telegram
+    data_template:
+      title: Dem Schilf gehts nicht gut :(
+      message: |
+
+        {{ "\U0001F44E\U0001F3FC" }} {{ "\U0001F494" }}
+        Problem : {{ state_attr('plant.schilf','problem') }}
+        Die Feuchtigkeit liegt bei: {{ "\U0001F4A7" }} {{ state_attr('plant.schilf','moisture') }}
+        Nährwert des Bodens: {{ "\U0001F334" }} {{ state_attr('plant.schilf','conductivity') }}
+        Aktuelle Temperatur: {{ "\U0001F321" }} {{ state_attr('plant.schilf','temperature') }}
+        Aktuelle Helligkeit(lux): {{ "\u2600\uFE0F"}} {{ state_attr('plant.schilf','brightness') }}
+        Batteriezustand des Sensors: {{ "\U0001F50B" }} {{ state_attr('plant.schilf','battery') }}
+
+- alias: Schilf Happy
+  trigger:
+    platform: state
+    entity_id: plant.schilf
+    to: ok
+  action:
+  - service: notify.telegram
+    data_template:
+      title: Schilf bedankt sich herzlichst :)
+      message: |
+
+        Das Hast du toll gemacht !
+
+        {{ "\U0001F44D\U0001F3FC" }} {{ "\u2764\uFE0F" }}
+        Problem : {{ state_attr('plant.schilf','problem') }}
+        Die Feuchtigkeit liegt bei: {{ "\U0001F4A7" }} {{ state_attr('plant.schilf','moisture') }}
+        Nährwert des Bodens: {{ "\U0001F334" }} {{ state_attr('plant.schilf','conductivity') }}
+        Aktuelle Temperatur: {{ "\U0001F321" }} {{ state_attr('plant.schilf','temperature') }}
+        Aktuelle Helligkeit(lux): {{ "\u2600\uFE0F"}} {{ state_attr('plant.schilf','brightness') }}
+        Batteriezustand des Sensors: {{ "\U0001F50B" }} {{ state_attr('plant.schilf','battery') }}
+
+# Zitrone
+- alias: Zitrus Problem
+  trigger:
+    platform: state
+    entity_id: plant.zitrus
+    to: problem
+  action:
+  - service: notify.telegram
+    data_template:
+      title: Die Zitrone ist sauer auf dich
+      message: |
+        {{ "\U0001F34B" }}
+        {{ "\U0001F44E\U0001F3FC" }} {{ "\U0001F494" }}
+        Problem : {{ state_attr('plant.zitrus','problem') }}
+        Die Feuchtigkeit liegt bei: {{ "\U0001F4A7" }} {{ state_attr('plant.zitrus','moisture') }}
+        Nährwert des Bodens: {{ "\U0001F334" }} {{ state_attr('plant.zitrus','conductivity') }}
+        Aktuelle Temperatur: {{ "\U0001F321" }} {{ state_attr('plant.zitrus','temperature') }}
+        Aktuelle Helligkeit(lux): {{ "\u2600\uFE0F"}} {{ state_attr('plant.zitrus','brightness') }}
+        Batteriezustand des Sensors: {{ "\U0001F50B" }} {{ state_attr('plant.zitrus','battery') }}
+
+
+- alias: Zitrus Happy
+  trigger:
+    platform: state
+    entity_id: plant.zitrus
+    to: ok
+  action:
+  - service: notify.telegram
+    data_template:
+      title: Du hast die Ztrone glücklich gemacht. Danke!
+      message: |
+
+        Das Hast du toll gemacht !
+
+        Problem : {{ state_attr('plant.zitrus','problem') }}
+        Die Feuchtigkeit liegt bei: {{ state_attr('plant.zitrus','moisture') }}
+        Aktuelle Temperatur: {{ state_attr('plant.zitrus','temperature') }}
+        Batteriezustand des Sensors: {{ state_attr('plant.zitrus','battery') }}
+        Nährwert des Bodens: {{ state_attr('plant.zitrus','conductivity') }}
+        Aktuelle Helligkeit(lux): {{ state_attr('plant.zitrus','brightness') }}
+
+
+# Temp under 15
+
+- alias:  Room Cold
+  trigger:
+  - entity_id: sensor.mqqt_livingroom_temperature
+    platform: numeric_state
+    below: '15'
+  - entity_id: sensor.mqqt_bedroom_temperature
+    platform: numeric_state
+    below: '15'
+  action:
+  - service: notify.telegram
+    data_template:
+      title: Es ist kalt.
+      message: |
+        In Der Wohnung ist es unter 15 Grad.
+        Brrrh
+
+

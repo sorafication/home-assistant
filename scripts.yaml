@@ -1,15 +1,3 @@
-test_telegram:
-  alias: 'test_telegram'
-  sequence:
-    - service: notify.telegram
-      data:
-        title: Ich bin eine Script Nachricht
-        message: >
-                  {{ [
-                  "http://192.168.178.40:8123/local/FF.mp3",
-                  "http://192.168.178.40:8123/local/MarioOddysey.mp3",
-                  "http://192.168.178.40:8123/local/Pokemon.mp3",
-                  ] | random }}
 test_audio:
   alias: 'test_audio'
   sequence:
@@ -29,3 +17,42 @@ test_audio:
 #                  "http://stream01.iloveradio.de/iloveradio4.mp3",
 #                  "http://stream01.iloveradio.de/iloveradio8.mp3",
 #                  ] | random }}
+
+check_schilf:
+  alias: 'check_schilf'
+  sequence:
+    - service: notify.telegram
+      data_template:
+        title: Schilf Status
+        message: |
+
+         Problem : {{ state_attr('plant.schilf','problem') }}
+         Die Feuchtigkeit liegt bei: {{ state_attr('plant.schilf','moisture') }}
+         Aktuelle Temperatur: {{ state_attr('plant.schilf','temperature') }}
+         Batteriezustand des Sensors: {{ state_attr('plant.schilf','battery') }}
+         Nährwert des Bodens: {{ state_attr('plant.schilf','conductivity') }}
+         Aktuelle Helligkeit(lux): {{ state_attr('plant.schilf','brightness') }}
+
+check_zitrus:
+  alias: 'check_zitrus'
+  sequence:
+    - service: notify.telegram
+      data_template:
+        title: Zitrus Status
+        message: |
+         {{ "\U0001F6A8" }}
+         Problem : {{ state_attr('plant.zitrus','problem') }}
+         Die Feuchtigkeit liegt bei: {{ "\U0001F4A7" }} {{ state_attr('plant.zitrus','moisture') }}
+         Aktuelle Temperatur: {{ "\U0001F321" }} {{ state_attr('plant.zitrus','temperature') }}
+         Batteriezustand des Sensors: {{ "\U0001F50B" }} {{ state_attr('plant.zitrus','battery') }}
+         Nährwert des Bodens: {{ "\U0001F334" }} {{ state_attr('plant.zitrus','conductivity') }}
+         Aktuelle Helligkeit(lux): {{ "\u2600\uFE0F"}} {{ state_attr('plant.zitrus','brightness') }}
+
+         {{ "\U0001F44D\U0001F3FC" }} {{ "\u2764\uFE0F" }}
+         Problem : {{ state_attr('plant.schilf','problem') }}
+         Die Feuchtigkeit liegt bei: {{ "\U0001F4A7" }} {{ state_attr('plant.schilf','moisture') }}
+         Nährwert des Bodens: {{ "\U0001F334" }} {{ state_attr('plant.schilf','conductivity') }}
+         Aktuelle Temperatur: {{ "\U0001F321" }} {{ state_attr('plant.schilf','temperature') }}
+         Aktuelle Helligkeit(lux): {{ "\u2600\uFE0F"}} {{ state_attr('plant.schilf','brightness') }}
+         Batteriezustand des Sensors: {{ "\U0001F50B" }} {{ state_attr('plant.schilf','battery') }}
+

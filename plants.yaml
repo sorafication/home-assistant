@@ -1,0 +1,36 @@
+#Zitrus:
+#  sensors:
+#    moisture: sensor.flowersensorb_moisture
+#    battery: sensor.flowersensorb_battery
+#    temperature: sensor.flowersensorb_temperature
+#   conductivity: sensor.flowersensorb_conductivity
+#    brightness: sensor.flowersensorb_light_intensity
+#  min_moisture: 25
+#  min_battery: 15
+#  min_conductivity: 500
+
+# mqtt
+Schilf:
+  sensors:
+    moisture: sensor.mqqt_flower_a_moisture
+    battery: sensor.mqqt_flower_a_battery
+    temperature: sensor.mqqt_flower_a_temperature
+    conductivity: sensor.mqqt_flower_a_conductivity
+    brightness: sensor.mqqt_flower_a_light
+  min_moisture: 20
+  max_moisture: 60
+  min_battery: 15
+  min_conductivity: 500
+
+
+Zitrone:
+  sensors:
+    moisture: sensor.mqqt_flower_b_moisture
+    battery: sensor.mqqt_flower_b_battery
+    temperature: sensor.mqqt_flower_b_temperature
+    conductivity: sensor.mqqt_flower_b_conductivity
+    brightness: sensor.mqqt_flower_b_light
+  min_moisture: 20
+  max_moisture: 60
+  min_battery: 15
+  min_conductivity: 500

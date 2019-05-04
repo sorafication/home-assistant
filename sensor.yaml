@@ -1,0 +1,75 @@
+#  - platform: miflora
+#    mac: 'C4:7C:8D:64:45:AF'
+#    name: FlowerSensorA
+#    force_update: false
+#    median: 3
+#    monitored_conditions:
+#      - moisture
+#      - light
+#      - temperature
+#      - conductivity
+#      - battery
+
+# Flower Sensor A
+  - platform: mqtt
+    state_topic: miflora/flower_a/temperature
+    name: "mqqt-Flower-A Temperature"
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    state_topic: miflora/flower_a/moisture
+    name: "mqqt-Flower-A Moisture"
+    unit_of_measurement: "%"
+  - platform: mqtt
+    state_topic: miflora/flower_a/light
+    name: "mqqt-Flower-A Light"
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    state_topic: miflora/flower_a/conductivity
+    name: "mqqt-Flower-A Conductivity"
+    unit_of_measurement: "us/cm"
+  - platform: mqtt
+    state_topic: miflora/flower_a/battery
+    name: "mqqt-Flower-A Battery"
+    unit_of_measurement: "%"
+
+# Flower Sensor B
+  - platform: mqtt
+    state_topic: miflora/flower_b/temperature
+    name: "mqqt-Flower-B Temperature"
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    state_topic: miflora/flower_b/moisture
+    name: "mqqt-Flower-B Moisture"
+    unit_of_measurement: "%"
+  - platform: mqtt
+    state_topic: miflora/flower_b/light
+    name: "mqqt-Flower-B Light"
+    unit_of_measurement: "lux"
+  - platform: mqtt
+    state_topic: miflora/flower_b/conductivity
+    name: "mqqt-Flower-B Conductivity"
+    unit_of_measurement: "us/cm"
+  - platform: mqtt
+    state_topic: miflora/flower_b/battery
+    name: "mqqt-Flower-B Battery"
+    unit_of_measurement: "%"
+
+# MiThermometer Bedroom
+  - platform: mqtt
+    state_topic: mithermometer/bed_room/temperature
+    name: "mqqt-Bedroom Temperature"
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    state_topic: mithermometer/bed_room/humidity
+    name: "mqqt-Bedroom Humidity"
+    unit_of_measurement: "%"
+
+# MiThermometer Livingroom
+  - platform: mqtt
+    state_topic: mithermometer/living_room/temperature
+    name: "mqqt-Livingroom Temperature"
+    unit_of_measurement: "°C"
+  - platform: mqtt
+    state_topic: mithermometer/living_room/humidity
+    name: "mqqt-Livingroom Humidity"
+    unit_of_measurement: "%"
